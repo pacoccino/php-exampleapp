@@ -3,12 +3,12 @@ version: '3'
 services:
     php-apache:
         build: 
-          context: .
-          dockerfile: config/php-apache.Dockerfile
+          context: ./server
+          dockerfile: server/php-apache.Dockerfile
         volumes:
             - ".:/var/www/html"
-            - "./config/vhost.conf:/etc/apache2/sites-available/000-default.conf:ro"
-            - "./config/php.ini:/usr/local/etc/php/conf.d/app.ini:ro"
+            - "./server/vhost.conf:/etc/apache2/sites-available/000-default.conf:ro"
+            - "./server/php.ini:/usr/local/etc/php/conf.d/app.ini:ro"
             - "./data/logs:/var/log/apache2/"
         ports:
             - "8080:80"
