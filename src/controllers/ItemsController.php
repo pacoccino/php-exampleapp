@@ -12,7 +12,9 @@ class ItemsController extends AbstractController
         $itemManager = new ItemManager();
 
         $items = $itemManager->getItems(10);
-        $this->renderView('items', ['items' => $items]);
+        $seo = ['title' => "items", "description" => "list of items"];
+
+        $this->renderView('items', ['items' => $items], $seo);
 
     }
 }

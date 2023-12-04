@@ -4,7 +4,7 @@ namespace Lib;
 
 abstract class AbstractController
 {
-    protected function renderView(string $template, array $data = []): string
+    protected function renderView(string $template, array $data = [], array $seo = []): string
     {
         $templatePath = dirname(__DIR__, 1) . '/templates/pages/' . $template . '.php';
         return require_once dirname(__DIR__, 1) . '/templates/layout.php';

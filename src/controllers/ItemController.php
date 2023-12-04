@@ -29,7 +29,9 @@ class ItemController extends AbstractController
         $item = $itemManager->getItem($itemId);
         $comments = $commentManager->getComments($itemId, 10);
 
-        $this->renderView('item', ['item' => $item, 'comments' => $comments]);
+        $seo = ['title' => $item['title'], "description" => $item['content']];
+
+        $this->renderView('item', ['item' => $item, 'comments' => $comments], $seo);
 
     }
 }
