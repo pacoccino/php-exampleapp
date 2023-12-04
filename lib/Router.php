@@ -24,17 +24,17 @@ class Router
 		if (isset($this->requestedPage)) {
 			// Check si la page est bien dans le tableau de route (l'argument "true" vérifie aussi le type du paramètre)
 			if (in_array($this->requestedPage, $this->availablePages, true)) {
-				$Controller = AVAILABLE_ROUTES[$_GET['page']];
+				$ControllerClass = AVAILABLE_ROUTES[$_GET['page']];
 			} else {
 
-				$Controller = UNKNOWN_ROUTE;
+				$ControllerClass = UNKNOWN_ROUTE;
 			}
 		} else {
-			$Controller = DEFAULT_ROUTE;
+			$ControllerClass = DEFAULT_ROUTE;
 		}
 
 		// Inclusion du contrôleur
-		$controller = new $Controller();
+		$controller = new $ControllerClass();
 		$controller->execute();
 
 	}

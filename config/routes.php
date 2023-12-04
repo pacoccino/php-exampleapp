@@ -2,6 +2,7 @@
 
 const AVAILABLE_ROUTES = [
     'home' => App\Controllers\HomeController::class,
+    'items' => App\Controllers\ItemsController::class,
     'item' => App\Controllers\ItemController::class,
     '404' => App\Controllers\NotFoundController::class,
 ];

@@ -10,8 +10,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `caca`
 --
-CREATE DATABASE IF NOT EXISTS `caca` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `caca`;
+CREATE DATABASE IF NOT EXISTS `example` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `example`;
 
 -- --------------------------------------------------------
 

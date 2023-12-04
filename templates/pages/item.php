@@ -7,9 +7,9 @@ $postCreated = isset($_GET['action']) && $_GET['action'] === 'create-post-succes
 
 <div class="home">
 	<section id="about">
-		<h1>Blog dev</h1>
+		<h1>Item</h1>
 	</section>
-	<section id="article">
+	<section id="item">
 		<?php
 		if ($postCreated) {
 			?>

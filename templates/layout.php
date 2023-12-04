@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>ITEMS</title>
+  <title>Example app</title>
   <link rel="stylesheet" href="app.css">
 </head>
 
