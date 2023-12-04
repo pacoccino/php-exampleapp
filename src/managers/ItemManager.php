@@ -31,22 +31,22 @@ class ItemManager extends AbstractManager
 
 
   // Retourne un article spécifique
-  public function getItem(int $id): array
+  public function getItem(string $id): array
   {
     $sql = "SELECT * FROM " . ItemManager::TABLE_NAME . " WHERE id = :id";
     $query = $this->pdo->prepare($sql);
-    $query->bindParam(':id', $id, PDO::PARAM_INT);
+    $query->bindParam(':id', $id, PDO::PARAM_STR);
     $query->execute();
     $item = $query->fetch();
     $query->closeCursor();
     return $item;
   }
   // Retourne un article spécifique avec les commentaires
-  public function getItemWithComments(int $id): array
+  public function getItemWithComments(string $id): array
   {
     $sql = "SELECT * FROM " . ItemManager::TABLE_NAME . " WHERE id = :id LEFT ";
     $query = $this->pdo->prepare($sql);
-    $query->bindParam(':id', $id, PDO::PARAM_INT);
+    $query->bindParam(':id', $id, PDO::PARAM_STR);
     $query->execute();
     $item = $query->fetch();
     $query->closeCursor();
@@ -56,44 +56,40 @@ class ItemManager extends AbstractManager
   // ===== ECRITURE ===== //
 
   // Ajoute un nouvel article en BDD
-  public function addItem(array $fields): int
+  public function addItem(array $fields): string
   {
     $uuid = Uuid::uuid4()->toString();
     $title = $fields['title'];
     $content = $fields['content'];
-    $created_at = date_format(new DateTime('NOW'), 'Y-m-d H:i:s');
-    $sql = "INSERT INTO " . ItemManager::TABLE_NAME . " (title, content, uuid, created_at) VALUES (:title, :content, :uuid, :created_at)";
+    $sql = "INSERT INTO " . ItemManager::TABLE_NAME . " (title, content) VALUES (:title, :content) RETURNING id;";
     $query = $this->pdo->prepare($sql);
     $query->bindParam(':title', $title, PDO::PARAM_STR);
-    $query->bindParam(':uuid', $uuid, PDO::PARAM_STR);
     $query->bindParam(':content', $content, PDO::PARAM_STR);
-    $query->bindParam(':created_at', $created_at, PDO::PARAM_STR);
     $query->execute();
-    $lastInsertId = $this->pdo->lastInsertId();
+    $lastInsertId = $query->fetchColumn();
     return $lastInsertId;
   }
 
   // Supprime un article en BDD
-  public function deleteItem(int $id): void
+  public function deleteItem(string $id): void
   {
     $sql = "DELETE FROM " . ItemManager::TABLE_NAME . " WHERE id = :id";
     $query = $this->pdo->prepare($sql);
-    $query->bindParam(':id', $id, PDO::PARAM_INT);
+    $query->bindParam(':id', $id, PDO::PARAM_STR);
     $query->execute();
   }
 
   // Edite un article en BDD
-  public function editArticle(int $id, array $fields): void
+  public function editArticle(string $id, array $fields): void
   {
     $title = $fields['title'];
     $content = $fields['content'];
     $updated_at = date_format(new DateTime('NOW'), 'Y-m-d H:i:s');
     $sql = "UPDATE " . ItemManager::TABLE_NAME . " SET title = :title, content = :content, updated_at = :updated_at WHERE id = :id";
     $query = $this->pdo->prepare($sql);
-    $query->bindParam(':id', $id, PDO::PARAM_INT);
+    $query->bindParam(':id', $id, PDO::PARAM_STR);
     $query->bindParam(':title', $title, PDO::PARAM_STR);
     $query->bindParam(':content', $content, PDO::PARAM_STR);
-    $query->bindParam(':updated_at', $updated_at, PDO::PARAM_STR);
     $query->execute();
   }
 

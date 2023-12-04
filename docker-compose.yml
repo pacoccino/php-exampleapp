@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+    php-apache:
+        build: 
+          context: .
+          dockerfile: config/php-apache.Dockerfile
+        volumes:
+            - ".:/var/www/html"
+            - "./config/vhost.conf:/etc/apache2/sites-available/000-default.conf:ro"
+            - "./config/php.ini:/usr/local/etc/php/conf.d/app.ini:ro"
+            - "./data/logs:/var/log/apache2/"
+        ports:
+            - "8080:80"
+
+    pgsql:
+        image: postgres:alpine
+        volumes:
+            - "./data/db:/var/lib/postgresql/data"
+            - "./db.sql:/docker-entrypoint-initdb.d/db.sql"
+        environment:
+            POSTGRES_USER: foobar
+            POSTGRES_PASSWORD: foobar
+            POSTGRES_DB: foobar
+
+    pgadmin:
+      image: dpage/pgadmin4
+      restart: always
+      environment:
+        PGADMIN_DEFAULT_EMAIL: admin@admin.com
+        PGADMIN_DEFAULT_PASSWORD: password
+      ports:
+        - "8081:80"
