@@ -5,14 +5,14 @@
   <meta charset="UTF-8">
   <title>Example app</title>
   <link rel="stylesheet" href="app.css">
+  <script src="//unpkg.com/alpinejs" defer></script>
 </head>
 
 <body>
-  <main>
+  <main x-init="">
     <?php require 'partials/_header.php'; ?>
     <?php require($templatePath); ?>
     <?php require 'partials/_footer.php'; ?>
-    <script src="app.js"></script>
   </main>
 </body>
 

@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use Lib\AbstractController;
 use App\Managers\ItemManager;
+use App\Managers\CommentManager;
 
 class ItemController extends AbstractController
 {
@@ -11,6 +12,7 @@ class ItemController extends AbstractController
     public function execute()
     {
         $itemManager = new ItemManager();
+        $commentManager = new CommentManager();
 
         if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_GET['action']) && $_GET['action'] === 'create') {
             // Verification 
@@ -25,8 +27,9 @@ class ItemController extends AbstractController
 
         $itemId = $_GET['id'];
         $item = $itemManager->getItem($itemId);
+        $comments = $commentManager->getComments($itemId, 10);
 
-        $this->renderView('item', ['item' => $item]);
+        $this->renderView('item', ['item' => $item, 'comments' => $comments]);
 
     }
 }

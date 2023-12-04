@@ -41,6 +41,17 @@ class ItemManager extends AbstractManager
     $query->closeCursor();
     return $item;
   }
+  // Retourne un article spécifique avec les commentaires
+  public function getItemWithComments(int $id): array
+  {
+    $sql = "SELECT * FROM " . ItemManager::TABLE_NAME . " WHERE id = :id LEFT ";
+    $query = $this->pdo->prepare($sql);
+    $query->bindParam(':id', $id, PDO::PARAM_INT);
+    $query->execute();
+    $item = $query->fetch();
+    $query->closeCursor();
+    return $item;
+  }
 
   // ===== ECRITURE ===== //
 

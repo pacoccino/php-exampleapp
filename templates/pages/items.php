@@ -12,13 +12,16 @@ $postCreationError = isset($_GET['action']) && $_GET['action'] === 'create-post-
 
 	<section id="new-item">
 		<h2>New Item</h2>
-		<form action="item&action=create" method="post">
-			<label for="title">Titre</label>
-			<input type="text" name="title">
-			<label for="titcontentle">Contenu</label>
-			<input type="text" name="content">
-			<button type="submit">Create</button>
-		</form>
+		<div x-data="{ title: '', content: '' }">
+			<form action="item&action=create" method="post">
+				<label for="title">Titre</label>
+				<input type="text" name="title" x-model="title">
+				<label for="titcontentle">Contenu</label>
+				<input type="text" name="content" x-model="content">
+				<button type="submit" x-bind:disabled="!title || !content">Create</button>
+			</form>
+		</div>
+
 
 		<?php
 		if ($postCreationError) {
@@ -30,14 +33,17 @@ $postCreationError = isset($_GET['action']) && $_GET['action'] === 'create-post-
 	</section>
 
 	<section id="items">
-		<?php foreach ($items as $item) { ?>
-			<article>
-				<h2>
-					<?= htmlspecialchars($item['title']); ?>
-				</h2>
-				<a href="<?= 'item&id=' . $item['id']; ?>">Lire l'article</a>
-			</article>
-		<?php } ?>
+		<h2>Item list</h1>
+			<ul>
+				<?php foreach ($items as $item) { ?>
+					<li>
+
+						<a href="<?= 'item&id=' . $item['id']; ?>">
+							<?= htmlspecialchars($item['title']); ?>
+						</a>
+					</li>
+				<?php } ?>
+			</ul>
 	</section>
 
 </div>

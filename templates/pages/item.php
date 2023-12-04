@@ -1,5 +1,6 @@
 <?php
 $item = $data['item'];
+$comments = $data['comments'];
 
 $postCreated = isset($_GET['action']) && $_GET['action'] === 'create-post-success';
 
@@ -21,9 +22,19 @@ $postCreated = isset($_GET['action']) && $_GET['action'] === 'create-post-succes
 			<h2>
 				<?= htmlspecialchars($item['title']); ?>
 			</h2>
-			<h2>
+			<p>
 				<?= htmlspecialchars($item['content']); ?>
-			</h2>
+				</h2>
 		</article>
+		<section id="comments">
+			<h2>Commentaires</h2>
+			<ul>
+				<?php foreach ($comments as $comment) { ?>
+					<li>
+						<?= htmlspecialchars($comment['content']); ?>
+					</li>
+				<?php } ?>
+			</ul>
+		</section>
 	</section>
 </div>
