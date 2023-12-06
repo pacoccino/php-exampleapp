@@ -8,15 +8,14 @@ use Lib\AbstractManager;
 
 class SongManager extends AbstractManager
 {
-  const TABLE_NAME = 'songs';
   public function __construct()
   {
-    parent::__construct();
+    parent::__construct('songs');
   }
 
   public function getSongs(int $limit): array
   {
-    $sql = "SELECT * FROM " . SongManager::TABLE_NAME . " LIMIT :limit";
+    $sql = "SELECT * FROM " . $this->tableName . " LIMIT :limit";
     $query = $this->pdo->prepare($sql);
     $query->bindParam(':limit', $limit, PDO::PARAM_INT);
     $query->execute();
@@ -28,7 +27,7 @@ class SongManager extends AbstractManager
 
   public function getSong(string $id): array
   {
-    $sql = "SELECT * FROM " . SongManager::TABLE_NAME . " WHERE id = :id";
+    $sql = "SELECT * FROM " . $this->tableName . " WHERE id = :id";
     $query = $this->pdo->prepare($sql);
     $query->bindParam(':id', $id, PDO::PARAM_STR);
     $query->execute();
@@ -41,7 +40,7 @@ class SongManager extends AbstractManager
   {
     $title = $fields['title'];
     $content = $fields['content'];
-    $sql = "INSERT INTO " . SongManager::TABLE_NAME . " (title, content) VALUES (:title, :content) RETURNING id;";
+    $sql = "INSERT INTO " . $this->tableName . " (title, content) VALUES (:title, :content) RETURNING id;";
     $query = $this->pdo->prepare($sql);
     $query->bindParam(':title', $title, PDO::PARAM_STR);
     $query->bindParam(':content', $content, PDO::PARAM_STR);
@@ -52,7 +51,7 @@ class SongManager extends AbstractManager
 
   public function deleteSong(string $id): void
   {
-    $sql = "DELETE FROM " . SongManager::TABLE_NAME . " WHERE id = :id";
+    $sql = "DELETE FROM " . $this->tableName . " WHERE id = :id";
     $query = $this->pdo->prepare($sql);
     $query->bindParam(':id', $id, PDO::PARAM_STR);
     $query->execute();
@@ -62,8 +61,7 @@ class SongManager extends AbstractManager
   {
     $title = $fields['title'];
     $content = $fields['content'];
-    $updated_at = date_format(new DateTime('NOW'), 'Y-m-d H:i:s');
-    $sql = "UPDATE " . SongManager::TABLE_NAME . " SET title = :title, content = :content WHERE id = :id";
+    $sql = "UPDATE " . $this->tableName . " SET title = :title, content = :content WHERE id = :id";
     $query = $this->pdo->prepare($sql);
     $query->bindParam(':id', $id, PDO::PARAM_STR);
     $query->bindParam(':title', $title, PDO::PARAM_STR);

@@ -17,10 +17,10 @@ class SongController extends AbstractController
         if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_GET['action']) && $_GET['action'] === 'create') {
             // Verification 
             if (!isset($_POST['title']) || !isset($_POST['content'])) {
-                $this->redirect('items', ['action' => 'create-post-error']);
+                $this->redirect('songs', ['action' => 'create-post-error']);
             } else {
                 $songId = $songManager->addSong(array('title' => $_POST['title'], 'content' => $_POST['content']));
-                $this->redirect('item', ['id' => $songId, 'action' => 'create-post-success']);
+                $this->redirect('song', ['id' => $songId, 'action' => 'create-post-success']);
             }
         }
 
