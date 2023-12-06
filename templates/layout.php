@@ -9,7 +9,7 @@
   <title>
     <?php if (isset($seo['title']))
       echo $seo['title'] . ' - '; ?>
-    Example App
+    Music App
   </title>
   <?php if (isset($seo['description'])) { ?>
     <meta name="description" content="<?= $seo['description'] ?>">

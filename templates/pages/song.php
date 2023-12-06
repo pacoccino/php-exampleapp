@@ -1,20 +1,20 @@
 <?php
-$item = $data['item'];
+$item = $data['song'];
 $comments = $data['comments'];
 
-$postCreated = isset($_GET['action']) && $_GET['action'] === 'create-post-success';
+$creationSuccess = isset($_GET['action']) && $_GET['action'] === 'create-success';
 
 ?>
 
 <div class="home">
 	<section id="about">
-		<h1>Item</h1>
+		<h1>Song</h1>
 	</section>
 	<section id="item">
 		<?php
-		if ($postCreated) {
+		if ($creationSuccess) {
 			?>
-			<p>Item Créé</p>
+			<p>Song created</p>
 			<?php
 		}
 		?>
@@ -30,7 +30,7 @@ $postCreated = isset($_GET['action']) && $_GET['action'] === 'create-post-succes
 			</p>
 		</article>
 		<section id="comments">
-			<h2>Commentaires</h2>
+			<h2>Comments</h2>
 			<ul>
 				<?php foreach ($comments as $comment) { ?>
 					<li>

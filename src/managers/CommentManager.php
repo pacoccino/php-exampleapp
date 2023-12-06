@@ -17,10 +17,10 @@ class CommentManager extends AbstractManager
 
   public function getComments(string $itemId, int $limit): array
   {
-    $sql = "SELECT * FROM " . CommentManager::TABLE_NAME . " WHERE item_id = :item_id LIMIT :limit";
+    $sql = "SELECT * FROM " . CommentManager::TABLE_NAME . " WHERE song_id = :song_id LIMIT :limit";
     $query = $this->pdo->prepare($sql);
     $query->bindParam(':limit', $limit, PDO::PARAM_INT);
-    $query->bindParam(':item_id', $itemId, PDO::PARAM_STR);
+    $query->bindParam(':song_id', $itemId, PDO::PARAM_STR);
     $query->execute();
     $items = $query->fetchAll();
     $query->closeCursor();

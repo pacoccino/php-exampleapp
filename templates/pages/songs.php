@@ -1,22 +1,22 @@
 <?php
-$items = $data['items'];
+$items = $data['songs'];
 
-$postCreationError = isset($_GET['action']) && $_GET['action'] === 'create-post-error';
+$creationError = isset($_GET['action']) && $_GET['action'] === 'create-error';
 
 ?>
 
 <div class="home">
 	<section id="about">
-		<h1>Items</h1>
+		<h1>Songs</h1>
 	</section>
 
 	<section id="new-item">
-		<h2>New Item</h2>
+		<h2>New song</h2>
 		<div x-data="{ title: '', content: '' }">
-			<form action="item&action=create" method="post">
+			<form action="song&action=create" method="post">
 				<label for="title">Titre</label>
 				<input type="text" name="title" x-model="title">
-				<label for="titcontentle">Contenu</label>
+				<label for="content">Contenu</label>
 				<input type="text" name="content" x-model="content">
 				<button type="submit" x-bind:disabled="!title || !content">Create</button>
 			</form>
@@ -24,21 +24,22 @@ $postCreationError = isset($_GET['action']) && $_GET['action'] === 'create-post-
 
 
 		<?php
-		if ($postCreationError) {
+		if ($creationError) {
 			?>
-			<p>Erreur creation de l'item</p>
+			<p>Song creation error</p>
 			<?php
 		}
 		?>
 	</section>
 
-	<section id="items">
-		<h2>Item list</h1>
+	<section id="songs">
+		<h2>Song list</h1>
 			<ul>
 				<?php foreach ($items as $item) { ?>
 					<li>
+						<span>🎶</span>
+						<a href="<?= 'song&id=' . $item['id']; ?>">
 
-						<a href="<?= 'item&id=' . $item['id']; ?>">
 							<?= htmlspecialchars($item['title']); ?>
 						</a>
 					</li>
