@@ -1,11 +1,11 @@
 <?php
 
-require __DIR__ . '/../vendor/autoload.php';
+require __DIR__.'/../vendor/autoload.php';
 
 use Lib\Router;
 
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/..');
-$dotenv->load();
+$_DOTENV = Dotenv\Dotenv::createImmutable(__DIR__.'/..');
+$_DOTENV->load();
 
 new Router();
 

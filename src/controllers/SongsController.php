@@ -5,10 +5,8 @@ namespace App\Controllers;
 use Lib\AbstractController;
 use App\Managers\SongManager;
 
-class SongsController extends AbstractController
-{
-    public function execute()
-    {
+class SongsController extends AbstractController {
+    public function execute() {
         $songManager = new SongManager();
 
         $songs = $songManager->getSongs(10);

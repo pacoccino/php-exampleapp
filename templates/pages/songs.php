@@ -1,8 +1,7 @@
 <?php
-$items = $data['songs'];
+$songs = $data['songs'];
 
 $creationError = isset($_GET['action']) && $_GET['action'] === 'create-error';
-
 ?>
 
 <div class="home">
@@ -24,7 +23,7 @@ $creationError = isset($_GET['action']) && $_GET['action'] === 'create-error';
 
 
 		<?php
-		if ($creationError) {
+		if($creationError) {
 			?>
 			<p>Song creation error</p>
 			<?php
@@ -35,12 +34,11 @@ $creationError = isset($_GET['action']) && $_GET['action'] === 'create-error';
 	<section id="songs">
 		<h2>Song list</h1>
 			<ul>
-				<?php foreach ($items as $item) { ?>
+				<?php foreach($songs as $song) { ?>
 					<li>
 						<span>🎶</span>
-						<a href="<?= 'song&id=' . $item['id']; ?>">
-
-							<?= htmlspecialchars($item['title']); ?>
+						<a href="<?= 'song&id='.$song['id']; ?>">
+							<?= htmlspecialchars($song['title']); ?>
 						</a>
 					</li>
 				<?php } ?>

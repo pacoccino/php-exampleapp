@@ -3,19 +3,15 @@
 namespace App\Managers;
 
 use PDO;
-use DateTime;
 use Lib\AbstractManager;
 
-class PlaylistManager extends AbstractManager
-{
-  public function __construct()
-  {
+class PlaylistManager extends AbstractManager {
+  public function __construct() {
     parent::__construct('playlists');
   }
 
-  public function getPlaylists(int $limit): array
-  {
-    $sql = "SELECT * FROM " . $this->tableName . " LIMIT :limit";
+  public function getPlaylists(int $limit): array {
+    $sql = "SELECT * FROM ".$this->tableName." LIMIT :limit";
     $query = $this->pdo->prepare($sql);
     $query->bindParam(':limit', $limit, PDO::PARAM_INT);
     $query->execute();
@@ -24,9 +20,8 @@ class PlaylistManager extends AbstractManager
     return $items;
   }
 
-  public function getPlaylist(string $id): array
-  {
-    $sql = "SELECT * FROM " . $this->tableName . " WHERE id = :id";
+  public function getPlaylist(string $id): array {
+    $sql = "SELECT * FROM ".$this->tableName." WHERE id = :id";
     $query = $this->pdo->prepare($sql);
     $query->bindParam(':id', $id, PDO::PARAM_STR);
     $query->execute();
@@ -35,10 +30,9 @@ class PlaylistManager extends AbstractManager
     return $item;
   }
 
-  public function addPlaylist(array $fields): string
-  {
+  public function addPlaylist(array $fields): string {
     $title = $fields['title'];
-    $sql = "INSERT INTO " . $this->tableName . " (title) VALUES (:title) RETURNING id;";
+    $sql = "INSERT INTO ".$this->tableName." (title) VALUES (:title) RETURNING id;";
     $query = $this->pdo->prepare($sql);
     $query->bindParam(':title', $title, PDO::PARAM_STR);
     $query->execute();
@@ -46,18 +40,16 @@ class PlaylistManager extends AbstractManager
     return $lastInsertId;
   }
 
-  public function deletePlaylist(string $id): void
-  {
-    $sql = "DELETE FROM " . $this->tableName . " WHERE id = :id";
+  public function deletePlaylist(string $id): void {
+    $sql = "DELETE FROM ".$this->tableName." WHERE id = :id";
     $query = $this->pdo->prepare($sql);
     $query->bindParam(':id', $id, PDO::PARAM_STR);
     $query->execute();
   }
 
-  public function editPlaylist(string $id, array $fields): void
-  {
+  public function editPlaylist(string $id, array $fields): void {
     $title = $fields['title'];
-    $sql = "UPDATE " . $this->tableName . " SET title = :title WHERE id = :id";
+    $sql = "UPDATE ".$this->tableName." SET title = :title WHERE id = :id";
     $query = $this->pdo->prepare($sql);
     $query->bindParam(':id', $id, PDO::PARAM_STR);
     $query->bindParam(':title', $title, PDO::PARAM_STR);
