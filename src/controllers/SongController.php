@@ -6,21 +6,31 @@ use Lib\AbstractController;
 use App\Managers\SongManager;
 use App\Managers\CommentManager;
 
-class SongController extends AbstractController
-{
+class SongController extends AbstractController {
 
-    public function execute()
-    {
+    public function execute() {
         $songManager = new SongManager();
         $commentManager = new CommentManager();
 
-        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_GET['action']) && $_GET['action'] === 'create') {
-            // Verification 
-            if (!isset($_POST['title']) || !isset($_POST['content'])) {
-                $this->redirect('songs', ['action' => 'create-post-error']);
-            } else {
-                $songId = $songManager->addSong(array('title' => $_POST['title'], 'content' => $_POST['content']));
-                $this->redirect('song', ['id' => $songId, 'action' => 'create-post-success']);
+        $songId = $_GET['id'];
+
+        if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_GET['action'])) {
+            if($_GET['action'] === 'create') {
+                // Verification 
+                if(!isset($_POST['title']) || !isset($_POST['content'])) {
+                    $this->redirect('songs', ['action' => 'create-error']);
+                } else {
+                    $songId = $songManager->addSong(array('title' => $_POST['title'], 'content' => $_POST['content']));
+                    $this->redirect('song', ['id' => $songId, 'action' => 'create-success']);
+                }
+            }
+            if($_GET['action'] === 'comment') {
+                // Verification 
+                if(!isset($_POST['content'])) {
+                    $this->redirect('songs', ['action' => 'comment-error']);
+                } else {
+                    $commentManager->addComment(array('song_id' => $songId, 'content' => $_POST['content']));
+                }
             }
         }
 
@@ -31,7 +41,7 @@ class SongController extends AbstractController
 
         $seo = ['title' => $song['title'], "description" => $song['content']];
 
-        $this->renderView('song', ['song' => $song, 'comments' => $comments], $seo);
+        $this->renderView('song', ['songId' => $songId, 'song' => $song, 'comments' => $comments], $seo);
     }
 }
 

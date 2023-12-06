@@ -1,6 +1,7 @@
 <?php
 $item = $data['song'];
 $comments = $data['comments'];
+$songId = $data['songId'];
 
 $creationSuccess = isset($_GET['action']) && $_GET['action'] === 'create-success';
 
@@ -12,7 +13,7 @@ $creationSuccess = isset($_GET['action']) && $_GET['action'] === 'create-success
 	</section>
 	<section id="item">
 		<?php
-		if ($creationSuccess) {
+		if($creationSuccess) {
 			?>
 			<p>Song created</p>
 			<?php
@@ -30,9 +31,19 @@ $creationSuccess = isset($_GET['action']) && $_GET['action'] === 'create-success
 			</p>
 		</article>
 		<section id="comments">
+
 			<h2>Comments</h2>
+
+			<div x-data="{ content: '' }">
+				<form action="song&action=comment&id=<?= $songId ?>" method="post">
+					<label for="content">Add comment</label>
+					<input type="text" name="content" x-model="content">
+					<button type="submit" x-bind:disabled="!content">Add</button>
+				</form>
+			</div>
+
 			<ul>
-				<?php foreach ($comments as $comment) { ?>
+				<?php foreach($comments as $comment) { ?>
 					<li>
 						<?= htmlspecialchars($comment['content']); ?>
 					</li>
