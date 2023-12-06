@@ -32,6 +32,7 @@ $creationError = isset($_GET['action']) && $_GET['action'] === 'create-error';
 	<?php
 
 	$itemName = 'Playlist';
+	$itemPage = 'playlist';
 
 	$items = $playlists;
 

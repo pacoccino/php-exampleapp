@@ -20,7 +20,7 @@ class SongManager extends AbstractManager {
     return $item;
   }
 
-  public function addItem(array $fields): string {
+  public function addSong(array $fields): string {
     $title = $fields['title'];
     $content = $fields['content'];
     $sql = "INSERT INTO ".$this->tableName." (title, content) VALUES (:title, :content) RETURNING id;";

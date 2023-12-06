@@ -6,7 +6,7 @@
         <?php foreach($items as $item) { ?>
             <li>
                 <span>🎶</span>
-                <a href="<?= 'song&id='.$item['id']; ?>">
+                <a href="<?= $itemPage.'&id='.$item['id']; ?>">
                     <?= htmlspecialchars($item['title']); ?>
                 </a>
             </li>

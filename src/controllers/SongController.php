@@ -9,10 +9,9 @@ use App\Managers\CommentManager;
 class SongController extends AbstractController {
 
     public function execute() {
+
         $songManager = new SongManager();
         $commentManager = new CommentManager();
-
-        $songId = $_GET['id'];
 
         if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_GET['action'])) {
             if($_GET['action'] === 'create') {
@@ -26,15 +25,18 @@ class SongController extends AbstractController {
             }
             if($_GET['action'] === 'comment') {
                 // Verification 
-                if(!isset($_POST['content'])) {
+                if(!isset($_POST['content']) || !isset($_GET['id'])) {
                     $this->redirect('songs', ['action' => 'comment-error']);
                 } else {
-                    $commentManager->addComment(array('song_id' => $songId, 'content' => $_POST['content']));
+                    $commentManager->addComment(array('song_id' => $_GET['id'], 'content' => $_POST['content']));
                 }
             }
         }
 
 
+        if(!isset($_GET['id'])) {
+            $this->redirect('songs');
+        }
         $songId = $_GET['id'];
         $song = $songManager->getSong($songId);
         $comments = $commentManager->getComments($songId, 10);

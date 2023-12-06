@@ -34,6 +34,7 @@ $creationError = isset($_GET['action']) && $_GET['action'] === 'create-error';
 	<?php
 
 	$itemName = 'Songs';
+	$itemPage = 'song';
 
 	$items = $songs;
 	require dirname(__DIR__, 1).'/partials/_itemList.php';
