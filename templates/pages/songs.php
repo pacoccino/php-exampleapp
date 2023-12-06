@@ -31,18 +31,12 @@ $creationError = isset($_GET['action']) && $_GET['action'] === 'create-error';
 		?>
 	</section>
 
-	<section id="songs">
-		<h2>Song list</h1>
-			<ul>
-				<?php foreach($songs as $song) { ?>
-					<li>
-						<span>🎶</span>
-						<a href="<?= 'song&id='.$song['id']; ?>">
-							<?= htmlspecialchars($song['title']); ?>
-						</a>
-					</li>
-				<?php } ?>
-			</ul>
-	</section>
+	<?php
+
+	$itemName = 'Songs';
+
+	$items = $songs;
+	require dirname(__DIR__, 1).'/partials/_itemList.php';
+	?>
 
 </div>

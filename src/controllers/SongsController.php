@@ -9,7 +9,7 @@ class SongsController extends AbstractController {
     public function execute() {
         $songManager = new SongManager();
 
-        $songs = $songManager->getSongs(10);
+        $songs = $songManager->getItems(10);
         $seo = ['title' => "songs", "description" => "list of songs"];
 
         $this->renderView('songs', ['songs' => $songs], $seo);

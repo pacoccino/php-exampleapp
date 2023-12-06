@@ -10,17 +10,6 @@ class SongManager extends AbstractManager {
     parent::__construct('songs');
   }
 
-  public function getSongs(int $limit): array {
-    $sql = "SELECT * FROM ".$this->tableName." LIMIT :limit";
-    $query = $this->pdo->prepare($sql);
-    $query->bindParam(':limit', $limit, PDO::PARAM_INT);
-    $query->execute();
-    $items = $query->fetchAll();
-    $query->closeCursor();
-    return $items;
-  }
-
-
   public function getSong(string $id): array {
     $sql = "SELECT * FROM ".$this->tableName." WHERE id = :id";
     $query = $this->pdo->prepare($sql);
@@ -31,7 +20,7 @@ class SongManager extends AbstractManager {
     return $item;
   }
 
-  public function addSong(array $fields): string {
+  public function addItem(array $fields): string {
     $title = $fields['title'];
     $content = $fields['content'];
     $sql = "INSERT INTO ".$this->tableName." (title, content) VALUES (:title, :content) RETURNING id;";

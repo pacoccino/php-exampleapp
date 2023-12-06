@@ -21,7 +21,7 @@ $creationError = isset($_GET['action']) && $_GET['action'] === 'create-error';
 
 
 		<?php
-		if ($creationError) {
+		if($creationError) {
 			?>
 			<p>Playlist creation error</p>
 			<?php
@@ -29,19 +29,13 @@ $creationError = isset($_GET['action']) && $_GET['action'] === 'create-error';
 		?>
 	</section>
 
-	<section id="playlists">
-		<h2>Playlists list</h1>
-			<ul>
-				<?php foreach ($playlists as $playlist) { ?>
-					<li>
-						<span>🎶</span>
-						<a href="<?= 'playlist&id=' . $playlist['id']; ?>">
+	<?php
 
-							<?= htmlspecialchars($playlist['title']); ?>
-						</a>
-					</li>
-				<?php } ?>
-			</ul>
-	</section>
+	$itemName = 'Playlist';
+
+	$items = $playlists;
+
+	require dirname(__DIR__, 1).'/partials/_itemList.php';
+	?>
 
 </div>

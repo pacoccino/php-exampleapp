@@ -10,16 +10,6 @@ class PlaylistManager extends AbstractManager {
     parent::__construct('playlists');
   }
 
-  public function getPlaylists(int $limit): array {
-    $sql = "SELECT * FROM ".$this->tableName." LIMIT :limit";
-    $query = $this->pdo->prepare($sql);
-    $query->bindParam(':limit', $limit, PDO::PARAM_INT);
-    $query->execute();
-    $items = $query->fetchAll();
-    $query->closeCursor();
-    return $items;
-  }
-
   public function getPlaylist(string $id): array {
     $sql = "SELECT * FROM ".$this->tableName." WHERE id = :id";
     $query = $this->pdo->prepare($sql);

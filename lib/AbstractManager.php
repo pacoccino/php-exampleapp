@@ -20,6 +20,15 @@ abstract class AbstractManager {
         $this->pdo->exec('SET NAMES \'utf8\'');
     }
 
+    public function getItems(int $limit): array {
+        $sql = "SELECT * FROM ".$this->tableName." LIMIT :limit";
+        $query = $this->pdo->prepare($sql);
+        $query->bindParam(':limit', $limit, PDO::PARAM_INT);
+        $query->execute();
+        $items = $query->fetchAll();
+        $query->closeCursor();
+        return $items;
+    }
 }
 
 ?>
