@@ -19,7 +19,7 @@ class SongController extends AbstractController {
                 if(!isset($_POST['title']) || !isset($_POST['content'])) {
                     $this->redirect('songs', ['action' => 'create-error']);
                 } else {
-                    $songId = $songManager->addSong(array('title' => $_POST['title'], 'content' => $_POST['content']));
+                    $songId = $songManager->addItem(array('title' => $_POST['title'], 'content' => $_POST['content']));
                     $this->redirect('song', ['id' => $songId, 'action' => 'create-success']);
                 }
             }
@@ -38,7 +38,7 @@ class SongController extends AbstractController {
             $this->redirect('songs');
         }
         $songId = $_GET['id'];
-        $song = $songManager->getSong($songId);
+        $song = $songManager->getItem($songId);
         $comments = $commentManager->getComments($songId, 10);
 
         $seo = ['title' => $song['title'], "description" => $song['content']];

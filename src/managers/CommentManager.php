@@ -2,14 +2,15 @@
 
 namespace App\Managers;
 
-use Ramsey\Uuid\Uuid;
 use PDO;
-use DateTime;
 use Lib\AbstractManager;
 
 class CommentManager extends AbstractManager {
   public function __construct() {
-    parent::__construct('comments');
+    $fieldTypes = [
+      'content' => PDO::PARAM_STR
+    ];
+    parent::__construct('comments', $fieldTypes);
   }
 
   public function getComments(string $itemId, int $limit): array {
@@ -22,17 +23,6 @@ class CommentManager extends AbstractManager {
     $query->closeCursor();
     return $items;
   }
-
-  public function addComment(array $fields) {
-    $content = $fields['content'];
-    $songId = $fields['song_id'];
-    $sql = "INSERT INTO ".$this->tableName." (content, song_id) VALUES (:content, :song_id)";
-    $query = $this->pdo->prepare($sql);
-    $query->bindParam(':content', $content, PDO::PARAM_STR);
-    $query->bindParam(':song_id', $songId, PDO::PARAM_STR);
-    $query->execute();
-  }
-
 }
 
 
