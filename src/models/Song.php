@@ -5,7 +5,6 @@ namespace App\Models;
 use Lib\AbstractModel;
 
 class Song extends AbstractModel {
-    public $id;
     public $title;
     public $content;
     public $created_at;

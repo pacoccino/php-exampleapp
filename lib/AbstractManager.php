@@ -46,7 +46,7 @@ abstract class AbstractManager {
         $models = array_map(fn($item) => new $this->ModelClass($item), $items);
         return $models;
     }
-    public function getItem(string $id) {
+    public function getItem(string $id): AbstractModel {
         $sql = "SELECT * FROM ".$this->tableName." WHERE id = :id";
         $query = $this->pdo->prepare($sql);
         $query->bindParam(':id', $id, PDO::PARAM_STR);
@@ -56,9 +56,10 @@ abstract class AbstractManager {
         $model = new $this->ModelClass($item);
         return $model;
     }
-    public function createItem(array $fields): string {
-
+    public function createItem(AbstractModel $model): string {
+        $fields = $model->toArray();
         $fieldNames = array_keys($fields);
+        $fieldNames = array_filter($fieldNames, fn($fieldName) => isset($fields[$fieldName]));
         $paramNames = array_map(fn($name) => ":$name", $fieldNames);
 
         $sql = "INSERT INTO ".$this->tableName." (".
@@ -77,18 +78,21 @@ abstract class AbstractManager {
         return $lastInsertId;
     }
 
-    public function editItem(string $id, array $fields): void {
+    public function editItem(AbstractModel $model): void {
+        $fields = $model->toArray();
         $fieldNames = array_keys($fields);
+        $fieldNames = array_filter($fieldNames, fn($fieldName) => isset($fields[$fieldName]));
 
         $sql = "UPDATE ".$this->tableName." SET ".
             implode(",", array_map(fn($fieldName) => "$fieldName = :$fieldName", $fieldNames))
             ." WHERE id = :id";
 
         $query = $this->pdo->prepare($sql);
-        $query->bindParam(':id', $id, PDO::PARAM_STR);
+        $query->bindParam(':id', $model->id, PDO::PARAM_STR);
 
         foreach($fieldNames as $fieldName) {
-            $query->bindParam(":$fieldName", $fields[$fieldName], $this->fieldTypes[$fieldName]);
+            if(isset($fields[$fieldName]))
+                $query->bindParam(":$fieldName", $fields[$fieldName], $this->fieldTypes[$fieldName]);
         }
 
         $query->execute();

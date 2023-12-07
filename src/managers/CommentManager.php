@@ -9,7 +9,8 @@ use App\Models\Comment;
 class CommentManager extends AbstractManager {
   public function __construct() {
     $fieldTypes = [
-      'content' => PDO::PARAM_STR
+      'content' => PDO::PARAM_STR,
+      'song_id' => PDO::PARAM_STR
     ];
     parent::__construct('comments', $fieldTypes, Comment::class);
   }

@@ -5,7 +5,6 @@ namespace App\Models;
 use Lib\AbstractModel;
 
 class Comment extends AbstractModel {
-    public $id;
     public $song_id;
     public $content;
 

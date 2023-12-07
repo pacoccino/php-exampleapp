@@ -3,6 +3,8 @@
 namespace App\Controllers;
 
 use Lib\AbstractController;
+use App\Models\Song;
+use App\Models\Comment;
 use App\Managers\SongManager;
 use App\Managers\CommentManager;
 
@@ -19,7 +21,8 @@ class SongController extends AbstractController {
                 if(!isset($_POST['title']) || !isset($_POST['content'])) {
                     $this->redirect('songs', ['action' => 'create-error']);
                 } else {
-                    $songId = $songManager->addItem(array('title' => $_POST['title'], 'content' => $_POST['content']));
+                    $song = new Song(['title' => $_POST['title'], 'content' => $_POST['content']]);
+                    $songId = $songManager->createItem($song);
                     $this->redirect('song', ['id' => $songId, 'action' => 'create-success']);
                 }
             }
@@ -28,7 +31,8 @@ class SongController extends AbstractController {
                 if(!isset($_POST['content']) || !isset($_GET['id'])) {
                     $this->redirect('songs', ['action' => 'comment-error']);
                 } else {
-                    $commentManager->addComment(array('song_id' => $_GET['id'], 'content' => $_POST['content']));
+                    $comment = new Comment(['song_id' => $_GET['id'], 'content' => $_POST['content']]);
+                    $commentManager->createItem($comment);
                 }
             }
         }
