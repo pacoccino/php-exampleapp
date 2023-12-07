@@ -1,5 +1,5 @@
 <?php
-$item = $data['song'];
+$song = $data['song'];
 $comments = $data['comments'];
 $songId = $data['songId'];
 
@@ -21,13 +21,13 @@ $creationSuccess = isset($_GET['action']) && $_GET['action'] === 'create-success
 		?>
 		<article>
 			<h2>
-				<?= htmlspecialchars($item['title']); ?>
+				<?= htmlspecialchars($song->title); ?>
 			</h2>
 			<blockquote>
-				<?= htmlspecialchars($item['content']); ?>
+				<?= htmlspecialchars($song->content); ?>
 			</blockquote>
 			<p>
-				<?= htmlspecialchars($item['created_at']); ?>
+				<?= htmlspecialchars($song->created_at); ?>
 			</p>
 		</article>
 		<section id="comments">
@@ -45,7 +45,7 @@ $creationSuccess = isset($_GET['action']) && $_GET['action'] === 'create-success
 			<ul>
 				<?php foreach($comments as $comment) { ?>
 					<li>
-						<?= htmlspecialchars($comment['content']); ?>
+						<?= htmlspecialchars($comment->content); ?>
 					</li>
 				<?php } ?>
 			</ul>

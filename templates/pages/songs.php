@@ -33,11 +33,14 @@ $creationError = isset($_GET['action']) && $_GET['action'] === 'create-error';
 
 	<?php
 
-	$itemName = 'Songs';
+	$itemName = 'Song';
 	$itemPage = 'song';
 
-	$items = $songs;
+	$items = array_map(fn($song) => [
+		'id' => $song->id,
+		'title' => $song->title
+	], $songs);
+
 	require dirname(__DIR__, 1).'/partials/_itemList.php';
 	?>
-
 </div>

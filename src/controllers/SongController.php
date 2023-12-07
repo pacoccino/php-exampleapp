@@ -39,9 +39,9 @@ class SongController extends AbstractController {
         }
         $songId = $_GET['id'];
         $song = $songManager->getItem($songId);
-        $comments = $commentManager->getComments($songId, 10);
+        $comments = $commentManager->getCommentsForSong($songId, 10);
 
-        $seo = ['title' => $song['title'], "description" => $song['content']];
+        $seo = ['title' => $song->title, "description" => $song->content];
 
         $this->renderView('song', ['songId' => $songId, 'song' => $song, 'comments' => $comments], $seo);
     }

@@ -4,6 +4,7 @@ namespace App\Managers;
 
 use PDO;
 use Lib\AbstractManager;
+use App\Models\Playlist;
 
 class PlaylistManager extends AbstractManager {
   public function __construct() {
@@ -11,7 +12,7 @@ class PlaylistManager extends AbstractManager {
       'title' => PDO::PARAM_STR
     ];
 
-    parent::__construct('playlists', $fieldTypes);
+    parent::__construct('playlists', $fieldTypes, Playlist::class);
   }
 }
 
