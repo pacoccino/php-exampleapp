@@ -4,7 +4,7 @@ services:
     php-apache:
         build: 
           context: ./server
-          dockerfile: server/php-apache.Dockerfile
+          dockerfile: php-apache.Dockerfile
         volumes:
             - ".:/var/www/html"
             - "./server/vhost.conf:/etc/apache2/sites-available/000-default.conf:ro"

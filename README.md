@@ -19,6 +19,13 @@ In order to run the platform, you need a webserver with PHP support, and a postg
 
 The easiest is to use WAMP on Windows or MAMP on MacOS, which sets up everything required for this platform to run. Just set the Apache's root folder to this `./public` folder.
 
+Alternatively, a server can easily be run with docker by running this command:
+```
+docker compose up
+```
+
+The platform will be available at http://localhost:8080 and pgAdmin at http://localhost:8081
+
 ## Installation
 
 Add php to path
