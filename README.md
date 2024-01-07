@@ -1,33 +1,53 @@
-## Install MAMP
+# SongApp
 
-## Install composer
+SongApp is a web platform for creating songs and playlists. 
+
+## Table of Contents
+
+- [Architecture](#architecture)
+- [Dependencies](#dependencies)
+- [Installation](#installation)
+- [Usage](#usage)
+
+## Architecture
+
+This website was built with plain html/js/css on the frontend, and php/postgresql for the backend.
+
+## Dependencies
+ 
+In order to run the platform, you need a webserver with PHP support, and a postgreSQL database
+
+The easiest is to use WAMP on Windows or MAMP on MacOS, which sets up everything required for this platform to run. Just set the Apache's root folder to this `./public` folder.
+
+## Installation
 
 Add php to path
 
+On MacOS:
 ```
 nano ~/.bashrc
 export PATH=/Applications/MAMP/bin/php/php8.2.0/bin:$PATH
 ```
 
+### Install dependencies
 
+Install composer in the project
 ```
 php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-php -r "if (hash_file('sha384', 'composer-setup.php') === 'e21205b207c3ff031906575712edab6f13eb0b361f2085f1f1237b7126d785e826a450292b6cfd1d64d92e6563bbde02') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
 php composer-setup.php --install-dir=bin
 php -r "unlink('composer-setup.php');"
 ```
 
-## Install dependencies
-
+Install PHP dependencies
 ```
 php bin/composer.phar install
 php bin/composer.phar dump-autoload
 ```
 
-When there is a change in namespace, re-run dump-autoload
+When there is a change in the namespaces, re-run dump-autoload
 
-## Setup variables
+### Setup variables
 
-Copy .env.example to .env, 
-Edit corresponding variables
+Copy `.env.example` to `.env`, then edit corresponding variables to match your database configuration
+
 
