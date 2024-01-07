@@ -50,4 +50,11 @@ When there is a change in the namespaces, re-run dump-autoload
 
 Copy `.env.example` to `.env`, then edit corresponding variables to match your database configuration
 
+### Setup database
 
+Execute the initial SQL setup queries, present in the `db.sql` file.
+
+You can use your favorite GUI (pgAdmin) or a command line:
+````
+psql -U <username> -d <database_name> -f db.sql
+``````
